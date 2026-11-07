@@ -1,0 +1,35 @@
+name: Repository checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    name: Basic source and whitespace checks
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Verify expected source file exists
+        run: |
+          test -s Tweak.mm
+          echo "Tweak.mm exists and is not empty."
+
+      - name: Check for trailing whitespace
+        run: |
+          if grep -n '[[:blank:]]$' Tweak.mm; then
+            echo "Trailing whitespace found."
+            exit 1
+          fi
+          echo "No trailing whitespace found."
+
+      - name: Check patch whitespace errors
+        run: git diff --check
