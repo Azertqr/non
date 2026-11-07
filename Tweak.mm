@@ -407,7 +407,7 @@ static UIWindow* gameWindow() {
     c.x = MAX(23, MIN(self.host.bounds.size.width - 23, c.x + t.x));
     c.y = MAX(23, MIN(self.host.bounds.size.height - 23, c.y + t.y));
     self.fab.center = c;
-    [gr setTranslation:CGPointZero inView:self.host];
+    [gr setTranslation:CGPointMake(0, 0) inView:self.host];
 }
 
 - (void)sw:(UISwitch*)s {
