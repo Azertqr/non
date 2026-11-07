@@ -6,7 +6,7 @@ on:
 
 jobs:
   build:
-    runs-on: macos-15
+    runs-on: macos-14
     steps:
       - uses: actions/checkout@v4
 
@@ -16,7 +16,7 @@ jobs:
           clang++ -arch arm64 -isysroot "$SDK" -miphoneos-version-min=14.0 \
             -std=c++17 -fobjc-arc -O2 -dynamiclib \
             -Wno-deprecated-declarations \
-            -framework UIKit -framework Foundation \
+            -framework UIKit -framework Foundation -framework CoreGraphics \
             -install_name @rpath/NyxMenuGBR.dylib \
             -o NyxMenuGBR.dylib Tweak.mm
           codesign -f -s - NyxMenuGBR.dylib
